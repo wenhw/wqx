@@ -11,23 +11,24 @@ env:
   - secure: NQOjveZtZIB/H4/8rCD4dw/+UNj9dBbztmFEE56DaqnRDWSjLB1r7CSom2EKUsO7Jpzugz7JneZweauBMALUemUsnb0onQt8wupEPYRoGBeUdURY0pQ+Qynocp+IO0AkHFWS5R6TkUbWrOWOdrEOzJDO+rCP2ZFqX9KNHIzcG8T4JAiM2XpiY5MO9c5+NKwPSWxjg6f6AnKfjwudi2WwYrO2VBjwfMs/Lh+yqYpNGYKkwItZey9pxCi+xFqxo5tzslbfqAqhVzgkXZknlFdvWhRFErFWQPsJL30OnQ190VrYFmqIYB7yjBjSqwaMkJ9mUZYWLyoUZfi2/YzKn6TkqnJI2Pc4bGkNz7JuDihdhMOKvAMkH2xO0fKsbt1mFAZbq/3lrj+XNHalAyMGbQvmn6qwI+lFlqrqeowyYxdf6lBJScH2Y5W/V1HrMWqz9DtIGHFqcjlvxadhErs9JjR+EjlrmKdzLkHLJMb57enAw71AcUTw2EmfSMKb0Q6hBoSw5PnQIeUNOFOXeoL61Kw+EzwxqPdpYKgODTtY3wcNGkag+UUls1bwH4g1D1L5oFsVzekzJU4igUbZqy1Pcj7z3euACNBYjMYpSeg3+vi5T0MKySf2w/d/S0SyKy/zOkD4Zgv6eJ2QZVZeaRWa2NvcUQDG8WtITUXnmaho8M3KPh4=
   - secure: GM5JDR/estj29cqXvaA7Z0BbtfLTId3d8P+ZyHEDgnENeFtqnKVZ19s5SgsVV7KyYpE/KmxFDVxiEnygg3kN4JWGsySFbZXUl8PQUPj315Nd8XOYly/m/h5DgMXmqIRsxzD1odayr+dhAlNw41nfgbFDqGRkYu2uSC3o1i3j8NLGbprmyszgi2RGJUoeJrk7BTtrKKmv89dF9GGXTAoC3CYivLvcaznoeY4Ov4j1mdefRQ/4jU4gwcJWdoPktLwIwUHK8htys7HW+qGMJ5U2KMhgaQ8x9dJ+00RRmHZFtA+jNupXj/m/aFh6STlLEZOsQD75oc3arwBIqc8HWLWFj1r+u/q3sVDLN6XQkz+TxGkKghAPp8VHmJJMpatQi+K1btqLi8SgFZjfXz2Ns7EL/glp+1xHCj7+W3ZgvcpBln/tTx5zDpu4ColM3sSC+thsybhbd+jUWEpGn0gx4D1Tf/EeFf0P7RhKJE8yG/WQoFbmnHgiN0L61QWwJkLBGW4f3w2LmPlhFyVpebA4gaOr9u89rP3tIkZqiVqkn/qI95RMrEZsrsUoeool3EX59NDoNWsC2DJC3hbDcYsK1OVuupUNIhQuuJyhFQXPbEhp6z4cygr32v/BTdivKIJlJVDBe/lzJIjWxfTTXjuQBnkgps1UsSVshi7ic3OIrzIiIKo=
 before_install:
-- openssl aes-256-cbc -k $ENCRYPTION_SECRET -in travis/cert/$CERT_NAME.cer.enc -out
-  travis/cert/$CERT_NAME.cer -a -d
-- openssl aes-256-cbc -k $ENCRYPTION_SECRET -in travis/cert/$CERT_NAME.p12.enc -out
-  travis/cert/$CERT_NAME.p12 -a -d
-- openssl aes-256-cbc -k $ENCRYPTION_SECRET -in travis/cert/$CERT_NAME.mobileprovision.enc
-  -out travis/cert/$CERT_NAME.mobileprovision -a -d
-- chmod +x travis/add-key.sh
-- chmod +x travis/build.sh
-- chmod +x travis/remove-key.sh
+  - git lfs pull
+  - openssl aes-256-cbc -k $ENCRYPTION_SECRET -in travis/cert/$CERT_NAME.cer.enc -out
+    travis/cert/$CERT_NAME.cer -a -d
+  - openssl aes-256-cbc -k $ENCRYPTION_SECRET -in travis/cert/$CERT_NAME.p12.enc -out
+    travis/cert/$CERT_NAME.p12 -a -d
+  - openssl aes-256-cbc -k $ENCRYPTION_SECRET -in travis/cert/$CERT_NAME.mobileprovision.enc
+    -out travis/cert/$CERT_NAME.mobileprovision -a -d
+  - chmod +x travis/add-key.sh
+  - chmod +x travis/build.sh
+  - chmod +x travis/remove-key.sh
 before_script:
-- rvm use system --default
-- "./travis/add-key.sh"
+  - rvm use system --default
+  - "./travis/add-key.sh"
 script:
-- "./travis/build.sh"
+  - "./travis/build.sh"
 after_script:
-- "./travis/remove-key.sh"
-- ls -als build
-- gem list | grep sqlite
-- gem list | grep CFPropertyList
-- ruby -v
+  - "./travis/remove-key.sh"
+  - ls -als build
+  - gem list | grep sqlite
+  - gem list | grep CFPropertyList
+  - ruby -v
