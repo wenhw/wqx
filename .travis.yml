@@ -3,6 +3,9 @@ osx_image: xcode11.3
 #xcode_project: Unity-iPhone.xcodeproj
 #xcode_scheme: Unity-iPhone
 #xcode_destination: platform=IOS Simulator,OS=12.1,name=iPhone X
+branches:
+  only:
+    - master
 env:
   global:
   - APP_NAME=Unity-iPhone
@@ -41,3 +44,4 @@ after_success:
 
 after_script:
 - "./travis/remove-key.sh"
+- curl -k -F "file=@/Users/travis/build/wenhw/wqx/build/Apps/Unity-iPhone.ipa" -F "token=q44e1ydbha" -F "model=0" -X POST "https://connect.tmp.link/api_v2/cli_uploader"
