@@ -27,9 +27,18 @@ before_install:
 - chmod +x travis/add-key.sh
 - chmod +x travis/build.sh
 - chmod +x travis/remove-key.sh
+before_script:
+- rvm use system --default
+- "./travis/add-key.sh"
+script:
+- "./travis/build.sh"
 
 after_success:
-- echo "build result: $TRAVIS_TEST_RESULT"
+- ls -als build
+- gem list | grep sqlite
+- gem list | grep CFPropertyList
 - ruby -v
 
+after_script:
+- "./travis/remove-key.sh"
 
