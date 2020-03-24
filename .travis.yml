@@ -2,7 +2,7 @@ language: objective-c
 osx_image: xcode11.3
 xcode_project: Unity-iPhone.xcodeproj
 xcode_scheme: Unity-iPhone
-xcode_destination: platform=IOS Simulator,OS=12.1,name=iPhone X
+#xcode_destination: platform=IOS Simulator,OS=12.1,name=iPhone X
 env:
   global:
   - APP_NAME=Unity-iPhone
