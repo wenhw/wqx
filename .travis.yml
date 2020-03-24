@@ -17,4 +17,27 @@ git:
     lfs_skip_smudge: true
 
 before_install:
-- ls -als .
+- git lfs pull
+- openssl aes-256-cbc -k $ENCRYPTION_SECRET -in travis/cert/$CERT_NAME.cer.enc -out
+  travis/cert/$CERT_NAME.cer -a -d
+- openssl aes-256-cbc -k $ENCRYPTION_SECRET -in travis/cert/$CERT_NAME.p12.enc -out
+  travis/cert/$CERT_NAME.p12 -a -d
+- openssl aes-256-cbc -k $ENCRYPTION_SECRET -in travis/cert/$CERT_NAME.mobileprovision.enc
+  -out travis/cert/$CERT_NAME.mobileprovision -a -d
+- chmod +x travis/add-key.sh
+- chmod +x travis/build.sh
+- chmod +x travis/remove-key.sh
+before_script:
+- rvm use system --default
+- "./travis/add-key.sh"
+script:
+- "./travis/build.sh"
+
+after_success:
+- ls -als build
+- gem list | grep sqlite
+- gem list | grep CFPropertyList
+- ruby -v
+
+after_script:
+- "./travis/remove-key.sh"
