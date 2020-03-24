@@ -17,6 +17,7 @@ git:
     lfs_skip_smudge: true
 
 before_install:
+- brew update
 - brew install git-lfs
 - openssl aes-256-cbc -k $ENCRYPTION_SECRET -in travis/cert/$CERT_NAME.cer.enc -out travis/cert/$CERT_NAME.cer -a -d
 - openssl aes-256-cbc -k $ENCRYPTION_SECRET -in travis/cert/$CERT_NAME.p12.enc -out travis/cert/$CERT_NAME.p12 -a -d
