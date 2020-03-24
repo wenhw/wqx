@@ -17,8 +17,7 @@ git:
     lfs_skip_smudge: true
 
 before_install:
-    #- git lfs pull
-- git lfs install
+- brew install git-lfs
 - openssl aes-256-cbc -k $ENCRYPTION_SECRET -in travis/cert/$CERT_NAME.cer.enc -out travis/cert/$CERT_NAME.cer -a -d
 - openssl aes-256-cbc -k $ENCRYPTION_SECRET -in travis/cert/$CERT_NAME.p12.enc -out travis/cert/$CERT_NAME.p12 -a -d
 - openssl aes-256-cbc -k $ENCRYPTION_SECRET -in travis/cert/$CERT_NAME.mobileprovision.enc -out travis/cert/$CERT_NAME.mobileprovision -a -d
@@ -27,6 +26,7 @@ before_install:
 - chmod +x travis/remove-key.sh
   #- ls -als travis/cert
 before_script:
+- git lfs pull
 - rvm use system --default
 - "./travis/add-key.sh"
 script:
