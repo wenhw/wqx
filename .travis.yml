@@ -35,10 +35,10 @@ script:
 - "./travis/build.sh"
 
 after_success:
-- ls -als build
-- gem list | grep sqlite
-- gem list | grep CFPropertyList
-- ruby -v
+- ls -als build/Apps
+  #- gem list | grep sqlite
+  #- gem list | grep CFPropertyList
+  #- ruby -v
 
 after_script:
 - "./travis/remove-key.sh"

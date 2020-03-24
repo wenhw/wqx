@@ -1,6 +1,7 @@
 #!/bin/sh
-xcrun xcodebuild -project Unity-iPhone.xcodeproj -scheme Unity-iPhone \
-  -archivePath Unity-iPhone.xcarchive archive
 
-xcrun xcodebuild -exportArchive -archivePath Unity-iPhone.xcarchive \
-  -exportPath ./build -exportOptionsPlist ExportOptions.plist -allowProvisioningUpdates
+xcodebuild archive -project Unity-iPhone.xcodeproj -scheme Unity-iPhone \
+  -archivePath Unity-iPhone.xcarchive | xcpretty
+
+xcodebuild -exportArchive -allowProvisioningUpdates -archivePath Unity-iPhone.xcarchive \
+   -exportOptionsPlist ExportOptions.plist -exportPath ./build | xcpretty
