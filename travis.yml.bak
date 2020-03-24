@@ -34,7 +34,6 @@ script:
 - "./travis/build.sh"
 
 after_success:
-- echo "build result: $TRAVIS_TEST_RESULT"
 - ls -als build
 - gem list | grep sqlite
 - gem list | grep CFPropertyList
