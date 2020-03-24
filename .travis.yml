@@ -18,11 +18,11 @@ git:
     lfs_skip_smudge: true
 
 before_install:
-- brew update
-- brew install git-lfs
-- git lfs install
-  #- PATH="/usr/local/bin:$PATH"
-  #- gem install xcpretty --no-document --quiet
+    #- brew update
+    #- brew install git-lfs
+    #- git lfs install
+- PATH="/usr/local/bin:$PATH";export PATH
+- gem install xcpretty --no-document --quiet
 - openssl aes-256-cbc -k $ENCRYPTION_SECRET -in travis/cert/$CERT_NAME.cer.enc -out travis/cert/$CERT_NAME.cer -a -d
 - openssl aes-256-cbc -k $ENCRYPTION_SECRET -in travis/cert/$CERT_NAME.p12.enc -out travis/cert/$CERT_NAME.p12 -a -d
 - openssl aes-256-cbc -k $ENCRYPTION_SECRET -in travis/cert/$CERT_NAME.mobileprovision.enc -out travis/cert/$CERT_NAME.mobileprovision -a -d
@@ -30,7 +30,7 @@ before_install:
 - chmod +x travis/build.sh
 - chmod +x travis/remove-key.sh
 before_script:
-- git lfs pull
+    #- git lfs pull
 - rvm use system --default
 - "./travis/add-key.sh"
 script:

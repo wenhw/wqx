@@ -1,7 +1,7 @@
 #!/bin/sh
 
 xcodebuild archive -project $XCODEPROJ.xcodeproj -scheme $XCODEPROJ \
-  -archivePath $XCODEPROJ.xcarchive
+  -archivePath $XCODEPROJ.xcarchive | xcpretty
 
 xcodebuild -exportArchive -allowProvisioningUpdates -archivePath $XCODEPROJ.xcarchive \
-   -exportOptionsPlist ExportOptions.plist -exportPath ./build
+   -exportOptionsPlist ExportOptions.plist -exportPath ./build | xcpretty
